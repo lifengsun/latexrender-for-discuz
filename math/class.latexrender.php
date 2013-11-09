@@ -186,6 +186,9 @@ class LatexRender {
         $string .= "\usepackage{slashed}\n";
         $string .= "\usepackage{amsfonts}\n";
         $string .= "\usepackage{amssymb}\n";
+        $string .= "\usepackage{chemstr,aliphat,carom}\n";
+        $string .= "\usepackage{ccycle,lowcycle,hcycle}\n";
+        $string .= "\usepackage{hetarom,hetaromh,locant}\n";
         $string .= "\pagestyle{empty}\n";
         $string .= "\begin{document}\n";
         $string .= "$".$latex_formula."$\n";

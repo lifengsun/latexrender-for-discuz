@@ -1,7 +1,5 @@
 LatexRenderĞèÒªLaTeXºÍImagemagickÖ§³Ö, ÔÚÊ¹ÓÃ±¾²å¼şÇ°ÇëÏÈÈ·±£·şÎñÆ÷ÉÏ¿ÉÒÔÕı³£ÔËĞĞÒÔÏÂËÄ¸ö³ÌĞò: latex, dvips, convert, identify.
 
-²»½¨Òé´ÓÃ»½Ó´¥¹ıLaTeXÏµÍ³µÄÓÃ»§Ê¹ÓÃ±¾²å¼ş(¸öÈËÒâ¼û). Èç¹ûÏëÁË½âLaTeXÊÇÊ²Ã´, ¿ÉÒÔµ½CTeXÂÛÌ³¿´¿´(http://www.ctex.org). 
-
 
 °²×°:
 
@@ -20,4 +18,4 @@ LatexRenderĞèÒªLaTeXºÍImagemagickÖ§³Ö, ÔÚÊ¹ÓÃ±¾²å¼şÇ°ÇëÏÈÈ·±£·şÎñÆ÷ÉÏ¿ÉÒÔÕı³£ÔËĞ
 
 [tex]e^{i\pi}+1=0[/tex]
 
-½á¹ûÓ¦Óë./foobar/foobar.gifÏàÍ¬.
+½á¹ûÓ¦Óëfoobar.gifÏàÍ¬.

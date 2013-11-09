@@ -4,9 +4,7 @@
 	[Discuz!] (C)2001-2007 Comsenz Inc.
 	This is NOT a freeware, use is subject to license terms
 
-	$RCSfile: discuzcode.func.php,v $
-	$Revision: 1.146.2.2 $
-	$Date: 2007/07/26 03:24:21 $
+	$Id: discuzcode.func.php 10315 2007-08-25 10:33:07Z monkey $
 */
 
 if(!defined('IN_DISCUZ')) {
@@ -35,26 +33,19 @@ if(!isset($_DCACHE['bbcodes']) || !is_array($_DCACHE['bbcodes']) || !is_array($_
 	@include DISCUZ_ROOT.'./forumdata/cache/cache_bbcodes.php';
 }
 
-foreach($_DCACHE['smilies']['replacearray'] as $key => $smiley) {
-	$_DCACHE['smilies']['replacearray'][$key] = '<img src="'.SMDIR.'/'.$smiley.'" smilieid="'.$key.'" border="0" alt="" />';
+foreach($_DCACHE['smilies']['replacearray'] AS $key => $smiley) {
+	$_DCACHE['smilies']['replacearray'][$key] = '<img src="images/smilies/'.$_DCACHE['smileytypes'][$_DCACHE['smilies']['typearray'][$key]]['directory'].'/'.$smiley.'" smilieid="'.$key.'" border="0" alt="" />';
 }
 
 mt_srand((double)microtime() * 1000000);
 
 function attachtag($pid, $aid, &$postlist) {
 	global $attachrefcheck, $thumbstatus, $extcredits, $creditstrans, $ftp, $exthtml;
-
-	if(isset($postlist[$pid]['attachments'][$aid])) {
-		$attach = $postlist[$pid]['attachments'][$aid];
-		unset($postlist[$pid]['attachments'][$aid]);
-
-		if($attach['attachimg']) {
-			$attachrefcheck = ($attachrefcheck || $attach['remote']) && !($attach['remote'] && substr($ftp['attachurl'], 0, 3) == 'ftp' && !$ftp['hideurl']);
-		}
-		return attachinpost($attach);
-	} else {
-		return '<strike>[attach]'.$aid.'[/attach]</strike>';
+	$attach = $postlist[$pid]['attachments'][$aid];
+	if($attach['attachimg']) {
+		$attachrefcheck = ($attachrefcheck || $attach['remote']) && !($attach['remote'] && substr($ftp['attachurl'], 0, 3) == 'ftp' && !$ftp['hideurl']);
 	}
+	return attachinpost($attach);
 }
 
 function censor($message) {
@@ -109,7 +100,7 @@ function karmaimg($rate, $ratetimes) {
 
 function parsetable($width, $bgcolor, $message) {
 	if(!preg_match("/^\[tr(?:=([\(\)%,#\w]+))?\]\s*\[td(?:=(\d{1,2}),(\d{1,2})(?:,(\d{1,4}%?))?)?\]/", $message) && !preg_match("/^<tr[^>]*?>\s*<td[^>]*?>/", $message)) {
-		return preg_replace("/\[tr(?:=([\(\)%,#\w]+))?\]|\[td(?:=(\d{1,2}),(\d{1,2})(?:,(\d{1,4}%?))?)?\]|\[\/td\]|\[\/tr\]/", '', $message);
+		return str_replace('\\"', '"', preg_replace("/\[tr(?:=([\(\)%,#\w]+))?\]|\[td(?:=(\d{1,2}),(\d{1,2})(?:,(\d{1,4}%?))?)?\]|\[\/td\]|\[\/tr\]/", '', $message));
 	}
 	$width = substr($width, -1) == '%' ? (substr($width, 0, -1) <= 98 ? intval($width).'%' : '98%') : ($width <= 560 ? intval($width).'px' : '98%');
 	return '<table cellspacing="0" class="t_table" '.
@@ -135,7 +126,6 @@ function parsemedia($type, $width, $height, $autostart, $url) {
 	if(in_array($type, array('ra', 'rm', 'wma', 'wmv', 'mp3', 'mov'))) {
 		$url = str_replace(array('<', '>'), '', str_replace('\\"', '\"', $url));
 		$mediaid = 'media_'.random(3);
-		$autostartw = $autostart ? 1 : 0;
 		switch($type) {
 			case 'ra'	: return '<object classid="clsid:CFCDAA03-8BE4-11CF-B84B-0020AFBBCCFA" width="'.$width.'" height="32"><param name="autostart" value="'.$autostart.'" /><param name="src" value="'.$url.'" /><param name="controls" value="controlpanel" /><param name="console" value="'.$mediaid.'_" /><embed src="'.$url.'" type="audio/x-pn-realaudio-plugin" controls="ControlPanel" '.($autostart ? 'autostart="true"' : '').' console="'.$mediaid.'_" width="'.$width.'" height="32"></embed></object>';break;
 			case 'rm'	: return '<object classid="clsid:CFCDAA03-8BE4-11cf-B84B-0020AFBBCCFA" width="'.$width.'" height="'.$height.'"><param name="autostart" value="'.$autostart.'" /><param name="src" value="'.$url.'" /><param name="controls" value="imagewindow" /><param name="console" value="'.$mediaid.'_" /><embed src="'.$url.'" type="audio/x-pn-realaudio-plugin" controls="IMAGEWINDOW" console="'.$mediaid.'_" width="'.$width.'" height="'.$height.'"></embed></object><br /><object classid="clsid:CFCDAA03-8BE4-11CF-B84B-0020AFBBCCFA" width="'.$width.'" height="32"><param name="src" value="'.$url.'" /><param name="controls" value="controlpanel" /><param name="console" value="'.$mediaid.'_" /><embed src="'.$url.'" type="audio/x-pn-realaudio-plugin" controls="ControlPanel" '.($autostart ? 'autostart="true"' : '').' console="'.$mediaid.'_" width="'.$width.'" height="32"></embed></object>';break;
@@ -218,8 +208,8 @@ function discuzcode($message, $smileyoff, $bbcodeoff, $htmlon = 0, $allowsmilies
 
 			$discuzcodes['replacearray']['bbcode_str'] = array(
 				'</font>', '</font>', '</font>', '</p>', '<strong>', '</strong>', '<i>',
-				'</i>', '<u>', '</u>', '<ul>', '<ul type="1" class="list1">', '<ul type="a" class="lista">',
-				'<ul type="A" class="listua">', '<li>', '</ul>', '<blockquote>', '</blockquote>', '</span>'
+				'</i>', '<u>', '</u>', '<ul>', '<ul type="1">', '<ul type="a">',
+				'<ul type="A">', '<li>', '</ul>', '<blockquote>', '</blockquote>', '</span>'
 			);
 		}
 
@@ -261,7 +251,7 @@ function discuzcode($message, $smileyoff, $bbcodeoff, $htmlon = 0, $allowsmilies
 					"/\[img=(\d{1,4})[x|\,](\d{1,4})\]\s*([^\[\<\r\n]+?)\s*\[\/img\]/ies"
 				), $allowimgcode ? array(
 					($parsetype != 1 ? "bbcodeurl('\\1', ' <img src=\"images/attachicons/flash.gif\" align=\"absmiddle\" alt=\"\" /> <a href=\"%s\" target=\"_blank\">Flash: %s</a> ')" : ""),
-					"bbcodeurl('\\1', '<img src=\"%s\" border=\"0\" onclick=\"zoom(this)\" onload=\"if(this.width>document.body.clientWidth*0.5) {this.resized=true;this.width=document.body.clientWidth*0.5;this.style.cursor=\'pointer\';} else {this.onclick=null}\" alt=\"\" />')",
+					"bbcodeurl('\\1', '<img src=\"%s\" border=\"0\" onclick=\"zoom(this)\" onload=\"attachimg(this, \'load\')\" alt=\"\" />')",
 					"bbcodeurl('\\3', '<img width=\"\\1\" height=\"\\2\" src=\"%s\" border=\"0\" alt=\"\" />')"
 				) : array(
 					($parsetype != 1 ? "bbcodeurl('\\1', ' <img src=\"images/attachicons/flash.gif\" align=\"absmiddle\" alt=\"\" /> <a href=\"%s\" target=\"_blank\">Flash: %s</a> ')" : ""),
@@ -289,7 +279,7 @@ if($videoopen) {
 	function videocode($message, $tid, $pid) {
 		global $vsiteid, $vsiteurl, $boardurl;
 		$vsiteurl = urlencode($vsiteurl);
-		$playurl = "http://union.bokecc.com/flash/discuz/player.swf?siteid=$vsiteid&vid=\\2&tid=$tid&pid=$pid&autoStart=\\1&referer=".urlencode($boardurl."redirect.php?goto=findpost&pid=$pid&ptid=$tid");
+		$playurl = "http://union.bokecc.com/flash/discuz2/player.swf?siteid=$vsiteid&vid=\\2&tid=$tid&pid=$pid&autoStart=\\1&referer=".urlencode($boardurl."redirect.php?goto=findpost&pid=$pid&ptid=$tid");
 		$flashplayer = '<object classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000" id="object_flash_player" codebase="http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=7,0,0,0" height="373" width="438">';
 		$flashplayer .= '<param name="movie" value="'.$playurl.'">';
 		$flashplayer .= '<param name="quality" value="high">';
@@ -325,10 +315,11 @@ function bbcodeurl($url, $tags) {
 function jammer() {
 	$randomstr = '';
 	for($i = 0; $i < mt_rand(5, 15); $i++) {
-		$randomstr .= chr(mt_rand(32, 59)).chr(mt_rand(63, 126));
+		$randomstr .= chr(mt_rand(32, 59)).' '.chr(mt_rand(63, 126));
 	}
-	return mt_rand(0, 1) ? '<font style="font-size:0px;color:'.TABLEBG.'">'.$GLOBALS['discuzcodes']['seoarray'][mt_rand(0, 5)].$randomstr.'</font>'."\r\n" :
-		"\r\n".'<span style="display:none">'.$randomstr.$GLOBALS['discuzcodes']['seoarray'][mt_rand(0, 5)].'</span>';
+	$seo = !$GLOBALS['tagstatus'] ? $GLOBALS['discuzcodes']['seoarray'][mt_rand(0, 5)] : '';
+	return mt_rand(0, 1) ? '<font style="font-size:0px;color:'.TABLEBG.'">'.$seo.$randomstr.'</font>'."\r\n" :
+		"\r\n".'<span style="display:none">'.$randomstr.$seo.'</span>';
 }
 
 
