@@ -1,7 +1,7 @@
 1.用途
 
 LaTeXRenderForDiscuz!是Crossday Discuz! Board[1]的插件，可以把Discuz!中输入的LaTeX公式转换成图片形式显示在文章中。
-LaTeXRenderForDiscuz!-7.0.0适用于Discuz!-7.0.0版。
+LaTeXRenderForDiscuz!-7.2适用于Discuz!-7.2版。
 
 2.原理
 
@@ -27,7 +27,7 @@ var $_identify_path = '/usr/bin/identify';
 require_once DISCUZ_ROOT.'plugins/latexrender/latex.php';
 $message = latex_content($message);
 
-(e) 在服务端建立目录DISCUZ/forumdata/latexrender，并在它下面建立pictures、tmp两个目录。在这三个目录下分别建立一个名为index.htm的空文件。把picture、tmp目录的访问权限设为777。
+(e) 在服务端建立目录DISCUZ/forumdata/latexrender，并在它下面建立pictures、tmp两个目录。在这三个目录下分别建立一个名为index.htm的空文件。把pictures、tmp目录的访问权限设为777。
 
 (f) 安装完成。
 
@@ -41,15 +41,14 @@ $message = latex_content($message);
 
 6.联系作者
 
-Lifong Sun <lifongsun{at}gmail.com>
+Lifeng Sun <lifongsun@gmail.com>
 
 
-2008.12.13
+2011.05.10
 
 
 
 [1] http://www.discuz.net
 [2] http://www.ctan.org/
 [3] http://www.imagemagick.org
-
 
