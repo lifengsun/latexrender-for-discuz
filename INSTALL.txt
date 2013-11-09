@@ -1,0 +1,23 @@
+LatexRender需要LaTeX和Imagemagick支持, 在使用本插件前请先确保服务器上可以正常运行以下四个程序: latex, dvips, convert, identify.
+
+不建议从没接触过LaTeX系统的用户使用本插件(个人意见). 如果想了解LaTeX是什么, 可以到CTeX论坛看看(http://www.ctex.org). 
+
+
+安装:
+
+1. 打开.math/class.latexrender.php, 把第41-44行四个程序的路径改成服务器上相应的路径.
+
+以下假设discuz安装在forum/目录.
+2. ./math目录上传到forum/目录;
+4. ./include/discuzcode.func.php上传到forum/include/, 覆盖原文件;
+3. (对Unix类服务器) forum/math/pictures/, forum/math/tmp/两个目录的访问权限设为777.
+
+安装完成.
+
+
+测试:
+发个帖子, 内容为
+
+[tex]e^{i\pi}+1=0[/tex]
+
+结果应与./foobar/foobar.gif相同.
