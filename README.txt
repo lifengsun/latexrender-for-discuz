@@ -1,7 +1,7 @@
 1.用途
 
 LaTeXRenderForDiscuz!是Crossday Discuz! Board[1]的插件，可以把Discuz!中输入的LaTeX公式转换成图片形式显示在文章中。
-LaTeXRenderForDiscuz!-7.2适用于Discuz!-7.2版。
+LaTeXRenderForDiscuz!-X3.1适用于Discuz! X3.0和X3.1版。
 
 2.原理
 
@@ -20,14 +20,14 @@ var $_identify_path = '/usr/bin/identify';
 
 以下假定Discuz!安装在服务器的DISCUZ目录下。
 
-(c) 上传latexrender目录下的所有文件到服务器的DISCUZ/plugins/latexrender目录。
+(c) 把latexrender目录下的所有文件上传到服务器的DISCUZ/source/plugin/latexrender目录。
 
-(d) 修改服务器端的文件DISCUZ/include/discuzcode.func.php，在第111行加入下面两行代码
+(d) 修改服务器端的文件DISCUZ/source/function/function_discuzcode.php，在第284和285行之间加入下面两行代码
 
-require_once DISCUZ_ROOT.'plugins/latexrender/latex.php';
+require_once DISCUZ_ROOT.'source/plugin/latexrender/latex.php';
 $message = latex_content($message);
 
-(e) 在服务端建立目录DISCUZ/forumdata/latexrender，并在它下面建立pictures、tmp两个目录。在这三个目录下分别建立一个名为index.htm的空文件。把pictures、tmp目录的访问权限设为777。
+(e) 在服务端建立目录DISCUZ/data/plugindata/latexrender，并在它下面建立pictures、tmp两个目录。在这三个目录下分别建立一个名为index.htm的空文件。把pictures、tmp目录的访问权限设为777。
 
 (f) 安装完成。
 
@@ -41,14 +41,15 @@ $message = latex_content($message);
 
 6.联系作者
 
-Lifeng Sun <lifongsun@gmail.com>
+Lifeng Sun <lifongsun{at}gmail.com>
 
 
-2011.05.10
+2013.11.09
 
 
 
 [1] http://www.discuz.net
 [2] http://www.ctan.org/
 [3] http://www.imagemagick.org
+
 

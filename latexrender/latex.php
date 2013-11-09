@@ -42,7 +42,7 @@ if (!defined('IN_DISCUZ')) {
 
 function latex_content($text)
 {
-	include_once(DISCUZ_ROOT."plugins/latexrender/class.latexrender.php");
+	include_once(DISCUZ_ROOT."source/plugin/latexrender/class.latexrender.php");
 	$latex = new LatexRender;
 
 	preg_match_all("#\[tex\](.*?)\[/tex\]#si", $text, $tex_matches);

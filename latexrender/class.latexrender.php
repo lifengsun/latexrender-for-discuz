@@ -29,7 +29,7 @@ if (!defined('IN_DISCUZ')) {
 
 class LatexRender
 {
-	var $_data_path = "forumdata/latexrender";
+	var $_data_path = "data/plugindata/latexrender";
 	var $_picture_path = "";
 	var $_picture_path_httpd = "";
 	var $_tmp_dir = "";
@@ -189,7 +189,7 @@ class LatexRender
 		$string .= "\pagestyle{empty}\n";
 		$string .= '\begin{document}'."\n";
 		$string .= "$".$latex_formula."$\n";
-		$string .= "\end{document}\n";
+		$string .= "\\end{document}\n";
 
 		return $string;
 	}
